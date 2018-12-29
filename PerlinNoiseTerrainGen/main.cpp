@@ -14,8 +14,8 @@ int main()
 
 	siv::PerlinNoise noise(12345);
 
-	double freq = 8;
-	int octaves = 1;
+	double freq = 16;
+	int octaves = 8;
 	int waterLevel = 100;
 
 	double fx = image.getSize().x / freq;
@@ -39,6 +39,10 @@ int main()
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
 
+	window.clear();
+	window.draw(sprite);
+	window.display();
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -48,9 +52,6 @@ int main()
 				window.close();
 		}
 
-		window.clear();
-		window.draw(sprite);
-		window.display();
 	}
 
 	return 0;
