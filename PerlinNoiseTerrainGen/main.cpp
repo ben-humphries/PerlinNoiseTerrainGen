@@ -16,6 +16,7 @@ int main()
 
 	double freq = 8;
 	int octaves = 1;
+	int waterLevel = 100;
 
 	double fx = image.getSize().x / freq;
 	double fy = image.getSize().y / freq;
@@ -23,9 +24,13 @@ int main()
 
 	for (double i = 0; i < image.getSize().x; i++) {
 		for (double j = 0; j < image.getSize().y; j++) {
-			//double val = noise.noise(i, j) * 255;
-			double val = noise.octaveNoise0_1(i / fx, j / fy, octaves) * 255;
-			image.setPixel(i, j, sf::Color(val, val, val, 255));
+
+			double val = noise.octaveNoise0_1(i / fx, j / fy, octaves);
+			image.setPixel(i, j, sf::Color(val * 60, val * 255, val * 0, 255));
+
+			if (val * 255 < waterLevel) {
+				image.setPixel(i, j, sf::Color(val * 0, val * 255, val * 240, 255));
+			}
 		}
 	}
 
