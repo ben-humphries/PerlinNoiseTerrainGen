@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include "PerlinNoise.hpp"
+
 #define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 1000
 
@@ -10,9 +12,20 @@ int main()
 	sf::Image image;
 	image.create(WINDOW_WIDTH, WINDOW_HEIGHT, sf::Color());
 
-	for (int i = 0; i < image.getSize().x; i++) {
-		for (int j = 0; j < image.getSize().y; j++) {
-			image.setPixel(i, j, sf::Color(i % 255, j % 255, 0, 255));
+	siv::PerlinNoise noise(12345);
+
+	double freq = 8;
+	int octaves = 1;
+
+	double fx = image.getSize().x / freq;
+	double fy = image.getSize().y / freq;
+
+
+	for (double i = 0; i < image.getSize().x; i++) {
+		for (double j = 0; j < image.getSize().y; j++) {
+			//double val = noise.noise(i, j) * 255;
+			double val = noise.octaveNoise0_1(i / fx, j / fy, octaves) * 255;
+			image.setPixel(i, j, sf::Color(val, val, val, 255));
 		}
 	}
 
