@@ -14,9 +14,9 @@ int main()
 
 	siv::PerlinNoise noise(12345);
 
-	double freq = 16;
+	double freq = 4;
 	int octaves = 8;
-	int waterLevel = 100;
+	int waterLevel = 150;
 
 	double fx = image.getSize().x / freq;
 	double fy = image.getSize().y / freq;
@@ -31,8 +31,13 @@ int main()
 			if (val * 255 < waterLevel) {
 				image.setPixel(i, j, sf::Color(val * 0, val * 255, val * 240, 255));
 			}
+			else if ((int) i % 16 == 0 || (int) j % 16 == 0) {
+				image.setPixel(i, j, sf::Color(255, 0, 0, 255));
+			}
 		}
 	}
+
+
 
 	sf::Texture texture;
 	texture.loadFromImage(image);
